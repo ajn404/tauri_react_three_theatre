@@ -11,14 +11,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2em;
+  gap: 2px;
 }
 
 .app button{
   background-color: #333;
-
   color: #fff;
   width: 10em;
   height: 3em;
+  padding: .5em;
   box-shadow: 1px 1px  #333;
 }
