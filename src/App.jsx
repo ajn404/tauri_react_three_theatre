@@ -7,22 +7,33 @@ import extension from "@theatre/r3f/dist/extension";
 import { editable as e, SheetProvider } from "@theatre/r3f";
 import { Model } from "./model.jsx";
 
-import { message } from "@tauri-apps/api/dialog";
+import { 
+  // message, 
+  save 
+} from "@tauri-apps/api/dialog";
+import { writeTextFile } from "@tauri-apps/api/fs";
+
+import genState from "./gen.json"
+
 
 studio.initialize();
 studio.extend(extension);
-const chunkSheet = getProject("chunkSheet").sheet("Chunk Sheet");
+const chunkSheet = getProject("Chuk Project",{state:genState}).sheet("Chunk Sheet");
 
 const saveFile = async () => {
+  // console.log("hello world tauri");
+  // await message("hello world", "tauri");
+  const filePath = await save();
+  const json = studio.createContentOfSaveFile("Chuk Project");
+  const jsonString = JSON.stringify(json)
+  await writeTextFile(filePath,jsonString);
 
-  console.log('hello world tauri');
-  await message("hello world", "tauri");
 };
 
 export default function App() {
   return (
     <div className="app">
-      <button onClick={saveFile}>hello tauri</button>
+      <button onClick={saveFile}>save sheet</button>
       <Canvas
         gl={{ preserveDrawingBuffer: true }}
         style={{
